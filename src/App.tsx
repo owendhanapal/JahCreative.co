@@ -1,25 +1,29 @@
-import {motion} from 'motion/react';
-import {SITE} from './data';
+import About from './components/About';
+import Different from './components/Different';
+import Enquire from './components/Enquire';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import Kits from './components/Kits';
+import Learning from './components/Learning';
+import Occasions from './components/Occasions';
+import OurPromise from './components/OurPromise';
 
 export default function App() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-      <motion.h1
-        initial={{opacity: 0, y: 16}}
-        animate={{opacity: 1, y: 0}}
-        transition={{duration: 0.6}}
-        className="text-5xl md:text-7xl font-bold tracking-tight"
-      >
-        {SITE.name}
-      </motion.h1>
-      <motion.p
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        transition={{delay: 0.3, duration: 0.6}}
-        className="mt-4 text-brand-muted"
-      >
-        {SITE.tagline}
-      </motion.p>
-    </main>
+    <div className="paper-grain">
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Kits />
+        <Learning />
+        <Different />
+        <Occasions />
+        <OurPromise />
+        <Enquire />
+      </main>
+      <Footer />
+    </div>
   );
 }

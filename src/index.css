@@ -1,31 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+@theme static {
+  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
 
-  /* Placeholder palette — swap once the brand direction is agreed */
-  --color-brand-ink: #0b0b0c;
-  --color-brand-paper: #f4f4f2;
-  --color-brand-accent: #e4572e;
-  --color-brand-muted: #8a8d93;
+  /* Paper + ink, sampled from the JAH banner */
+  --color-paper: #f9f1e4;
+  --color-paper-deep: #f1e5d1;
+  --color-paper-light: #fdf9f2;
+  --color-ink: #26201e;
+  --color-ink-soft: #5e5450;
+  --color-ink-faint: #9a8f88;
+
+  /* Pastel set — each has a soft wash and a deeper tone for text/lines */
+  --color-blush: #f2c4c9;
+  --color-blush-deep: #c97d89;
+  --color-lilac: #d6c8ea;
+  --color-lilac-deep: #8f78b8;
+  --color-sky: #c4d9ea;
+  --color-sky-deep: #6f97b8;
+  --color-sage: #c3d3b8;
+  --color-sage-deep: #7f9a74;
+  --color-butter: #f5e3a7;
+  --color-butter-deep: #c7a443;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    background-color: var(--color-brand-ink);
-    color: var(--color-brand-paper);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-sans);
+    font-weight: 400;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background-color: var(--color-brand-accent);
-    color: var(--color-brand-ink);
+    background-color: var(--color-blush);
+    color: var(--color-ink);
   }
 
-  /* Keep anchored sections clear of a fixed header */
+  /* Keep anchored sections clear of the fixed header */
   section[id] {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* Fine paper grain laid over the whole page */
+.paper-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.47 0 0 0 0 0.38 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

@@ -17,7 +17,30 @@ npm run preview  # serve the production build
 npm run lint     # tsc --noEmit
 ```
 
+## Design
+
+Cream paper background (sampled from the client's banner) with a pastel set —
+blush, lilac, sky, sage and butter — each with a `-deep` tone for text and
+lines. Cormorant Garamond for headings, Jost for body. Tokens live in the
+`@theme static` block of `src/index.css` (`static` so every colour variable is
+emitted, since components read them via `var()`).
+
 ## Content
 
-All copy and contact details live in `src/data.ts`. Brand colours and fonts are
-defined in the `@theme` block of `src/index.css`.
+All copy and contact details live in `src/data.ts`.
+
+## Artwork
+
+- `design/` holds the client's original logo and banner.
+- `public/jah-logo.png` is the logo with the white background keyed out to
+  transparency; `favicon.png` and `apple-touch-icon.png` are generated from it.
+- `public/brush/stroke-*.png` are dry-brush alpha masks. `BrushStroke` fills
+  them with a pastel via CSS `mask`, which is far cheaper to render than live
+  SVG noise filters.
+
+## Outstanding before launch
+
+- Contact details: `SITE.email` is a placeholder and `SITE.whatsapp` is empty.
+  The enquiry form opens WhatsApp when a number is set, otherwise email.
+- Product photography for the kits.
+- Final domain (currently assumed `jahcreative.co`).
