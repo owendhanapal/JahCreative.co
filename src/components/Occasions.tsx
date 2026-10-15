@@ -1,6 +1,6 @@
 import {Check} from 'lucide-react';
 import {INSIDE, OCCASIONS, type Pastel} from '../data';
-import {BrushStroke, pastel, Wash} from './Art';
+import {BrushStroke, PaintReveal, pastel, Wash} from './Art';
 import Reveal from './Reveal';
 
 const DOTS: Pastel[] = ['blush', 'lilac', 'sky', 'sage', 'butter'];
@@ -12,9 +12,11 @@ export default function Occasions() {
       <div className="relative mx-auto grid max-w-6xl gap-20 md:grid-cols-2">
         <Reveal>
           <p className="eyebrow">Everything in one kit</p>
-          <h2 className="mt-6 font-serif text-4xl leading-tight md:text-5xl">
-            Every item has a purpose. <em className="text-butter-deep">Every detail</em> is considered.
-          </h2>
+          <PaintReveal delay={0.15}>
+            <h2 className="mt-6 font-serif text-4xl leading-tight md:text-5xl">
+              Every item has a purpose. <em className="text-butter-deep">Every detail</em> is considered.
+            </h2>
+          </PaintReveal>
           <p className="mt-6 text-lg leading-relaxed text-ink-soft">
             The best creative experiences are the ones you can enjoy without the stress of preparing everything
             yourself — convenient, enjoyable and as mess-manageable as possible.

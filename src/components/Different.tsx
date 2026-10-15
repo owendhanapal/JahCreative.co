@@ -5,9 +5,9 @@ import SectionHeading from './SectionHeading';
 
 export default function Different() {
   return (
-    <section id="different" className="relative bg-paper-light px-6 py-28 md:py-40">
+    <section id="different" className="relative px-6 py-28 md:py-40">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading eyebrow="What makes us different">
+        <SectionHeading eyebrow="What makes us different" stroke="sage">
           Creativity made <em className="text-sage-deep">meaningful</em>
         </SectionHeading>
 

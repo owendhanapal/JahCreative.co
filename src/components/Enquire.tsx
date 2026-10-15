@@ -1,7 +1,7 @@
 import {Send} from 'lucide-react';
 import {useState, type FormEvent} from 'react';
 import {SITE} from '../data';
-import {BrushStroke, Wash} from './Art';
+import {PaintReveal, SwipeStroke, Wash} from './Art';
 import Reveal from './Reveal';
 
 const INTERESTS = ['Children’s kit (3+)', 'Adult kit', 'Casting stone', 'Canvas', 'A gift', 'Party or event'];
@@ -37,10 +37,12 @@ export default function Enquire() {
       <div className="relative mx-auto grid max-w-6xl gap-16 md:grid-cols-12">
         <Reveal className="md:col-span-5">
           <p className="eyebrow">Enquire</p>
-          <h2 className="mt-6 font-serif text-5xl leading-[1.02] md:text-6xl">
-            Let’s create something <em className="text-blush-deep">beautiful.</em>
-          </h2>
-          <BrushStroke colour="blush" variant={2} className="mt-6 h-5 w-48" />
+          <PaintReveal delay={0.15}>
+            <h2 className="mt-6 font-serif text-5xl leading-[1.02] md:text-6xl">
+              Let’s create something <em className="text-blush-deep">beautiful.</em>
+            </h2>
+          </PaintReveal>
+          <SwipeStroke colour="blush" delay={0.9} className="mt-6 h-5 w-48" />
           <p className="mt-8 text-lg leading-relaxed text-ink-soft">
             Planning a playdate, a birthday, a date night or a special gift? Tell us what you have in mind and we’ll
             help you choose the perfect kit.

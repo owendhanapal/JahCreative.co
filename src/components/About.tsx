@@ -1,4 +1,4 @@
-import {BrushStroke, Wash} from './Art';
+import {PaintReveal, SwipeStroke, Wash} from './Art';
 import Reveal from './Reveal';
 
 export default function About() {
@@ -8,10 +8,12 @@ export default function About() {
       <div className="relative mx-auto grid max-w-6xl gap-16 md:grid-cols-12 md:gap-10">
         <Reveal className="md:col-span-5">
           <p className="eyebrow">About us</p>
-          <h2 className="mt-6 font-serif text-5xl leading-[1.02] md:text-7xl">
-            More than <em className="text-blush-deep">just</em> an art kit.
-          </h2>
-          <BrushStroke colour="lilac" variant={2} className="mt-6 h-5 w-48" />
+          <PaintReveal delay={0.15}>
+            <h2 className="mt-6 font-serif text-5xl leading-[1.02] md:text-7xl">
+              More than <em className="text-blush-deep">just</em> an art kit.
+            </h2>
+          </PaintReveal>
+          <SwipeStroke colour="lilac" delay={0.9} className="mt-6 h-5 w-48" />
         </Reveal>
 
         <div className="space-y-8 text-lg leading-relaxed text-ink-soft md:col-span-6 md:col-start-7 md:pt-4">

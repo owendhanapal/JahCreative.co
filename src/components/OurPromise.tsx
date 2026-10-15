@@ -21,8 +21,8 @@ export default function OurPromise() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="mx-auto mt-10 max-w-2xl text-lg leading-relaxed text-ink-soft">
-            We want to be part of those little moments, big milestones and special memories. You don’t have to be an
-            artist — because creativity isn’t about perfection, it’s about the experience.
+            We want to be part of those little moments, big milestones and special memories. One beautiful creation at a
+            time.
           </p>
           <div className="mt-14 flex flex-col items-center justify-center gap-3 text-[0.72rem] uppercase tracking-[0.32em] text-ink md:flex-row md:gap-8">
             <span>Thoughtfully created</span>

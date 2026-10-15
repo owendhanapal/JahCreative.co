@@ -19,10 +19,10 @@ export default function Learning() {
   const [active, setActive] = useState<(typeof MIXES)[number] | null>(null);
 
   return (
-    <section id="learning" className="relative overflow-hidden px-6 py-28 md:py-40">
+    <section id="learning" className="relative overflow-hidden bg-paper-light px-6 py-28 md:py-40">
       <div className="mx-auto grid max-w-6xl items-center gap-20 md:grid-cols-2">
         <div>
-          <SectionHeading eyebrow="Learning through creativity" align="left">
+          <SectionHeading eyebrow="Learning through creativity" align="left" stroke="sky">
             Every brushstroke,
             <br />
             <em className="text-sky-deep">something new</em>
@@ -45,7 +45,7 @@ export default function Learning() {
         </div>
 
         <Reveal delay={0.15}>
-          <figure className="rounded-[2rem] bg-paper-light p-8 shadow-[0_30px_80px_-40px_rgba(38,32,30,0.25)] md:p-12">
+          <figure className="rounded-[2rem] bg-paper p-8 shadow-[0_30px_80px_-40px_rgba(38,32,30,0.25)] md:p-12">
             <svg viewBox="40 30 260 250" className="mx-auto w-full max-w-sm" role="img" aria-label="Colour mixing wheel">
               {PRIMARIES.map((p) => (
                 <circle
@@ -71,7 +71,7 @@ export default function Learning() {
                   onBlur={() => setActive(null)}
                   onClick={() => setActive((a) => (a === m ? null : m))}
                   className={`flex w-full items-center justify-between rounded-full border px-6 py-3 text-left transition-colors ${
-                    active === m ? 'border-ink/40 bg-paper' : 'border-ink/10'
+                    active === m ? 'border-ink/40 bg-paper-light' : 'border-ink/10'
                   }`}
                 >
                   <span className="font-serif text-xl">

@@ -1,4 +1,57 @@
+import {motion, useInView} from 'motion/react';
+import {useRef, type ReactNode} from 'react';
 import type {Pastel} from '../data';
+
+const paintEase = [0.65, 0, 0.35, 1] as const;
+
+/** Wipes its content in left-to-right, as if painted on with one stroke, when scrolled into view. */
+export function PaintReveal({
+  children,
+  delay = 0,
+  duration = 1.3,
+  className = '',
+}: {
+  children: ReactNode;
+  delay?: number;
+  duration?: number;
+  className?: string;
+}) {
+  // Watch an unclipped wrapper: a fully clipped element never registers as in view.
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, {once: true, margin: '-60px'});
+  return (
+    <div ref={ref} className={className}>
+      <motion.div
+        // Negative insets keep italic overhangs and descenders unclipped once revealed
+        initial={{clipPath: 'inset(-20% 100% -20% -5%)'}}
+        animate={inView ? {clipPath: 'inset(-20% -5% -20% -5%)'} : undefined}
+        transition={{duration, delay, ease: paintEase}}
+        className="h-full w-full"
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
+/** A brush stroke that gets swept on when scrolled into view. */
+export function SwipeStroke({
+  colour,
+  variant = 2,
+  delay = 0.5,
+  className = '',
+}: {
+  colour: Pastel;
+  variant?: number;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <PaintReveal delay={delay} duration={0.9} className={className}>
+      <BrushStroke colour={colour} variant={variant} className="h-full w-full" />
+    </PaintReveal>
+  );
+}
 
 export const pastel = (c: Pastel) => `var(--color-${c})`;
 export const pastelDeep = (c: Pastel) => `var(--color-${c}-deep)`;
