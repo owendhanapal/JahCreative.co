@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Placeholder palette — swap once the brand direction is agreed */
+  --color-brand-ink: #0b0b0c;
+  --color-brand-paper: #f4f4f2;
+  --color-brand-accent: #e4572e;
+  --color-brand-muted: #8a8d93;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-brand-ink);
+    color: var(--color-brand-paper);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-accent);
+    color: var(--color-brand-ink);
+  }
+
+  /* Keep anchored sections clear of a fixed header */
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+}
