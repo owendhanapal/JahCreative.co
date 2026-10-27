@@ -1,6 +1,6 @@
 # Jah Creative
 
-Marketing site for Jah Creative (jahcreative.co).
+Marketing site for JAH Creative Co — https://jahcreativeco.co.za
 
 ## Stack
 
@@ -48,4 +48,3 @@ form via `src/enquiry.ts`.
   The enquiry form opens WhatsApp when a number is set, otherwise email.
 - Product photography for the kits.
 - Sensory collection contents (currently shown as coming soon).
-- Final domain (currently assumed `jahcreative.co`).

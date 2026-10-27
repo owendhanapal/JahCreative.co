@@ -4,10 +4,10 @@ export type Pastel = 'blush' | 'lilac' | 'sky' | 'sage' | 'butter';
 
 export const SITE = {
   name: 'JAH Creative Co',
-  domain: 'jahcreative.co',
+  domain: 'jahcreativeco.co.za',
   tagline: 'where faith, creativity and imagination come together',
   // TODO: confirm contact details with the client before launch
-  email: 'hello@jahcreative.co',
+  email: 'hello@jahcreativeco.co.za',
   whatsapp: '', // international format, digits only, e.g. 27821234567
 };
 

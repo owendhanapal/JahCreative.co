@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jahcreative.co/sitemap.xml
+Sitemap: https://jahcreativeco.co.za/sitemap.xml
