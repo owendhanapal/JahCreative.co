@@ -12,6 +12,8 @@ export type Box = {
   colour: Pastel;
 };
 
+export type Photo = {src: string; box: string; alt: string};
+
 export type Collection = {
   id: string;
   tab: string;
@@ -20,6 +22,7 @@ export type Collection = {
   tagline: string;
   intro: string[];
   boxes: Box[];
+  gallery?: Photo[];
   comingSoon?: boolean;
   colour: Pastel;
 };
@@ -47,6 +50,13 @@ export const COLLECTIONS: Collection[] = [
       'Whether you’re looking for an educational activity, a fun-filled holiday surprise or a festive Christmas experience, there’s something special for every little creator!',
     ],
     colour: 'blush',
+    gallery: [
+      {
+        src: '/boxes/holiday-activity-box.jpg',
+        box: 'Holiday Activity Box',
+        alt: 'Holiday Activity Box with Formula One casting stone cars, the name LIAM in casting stone letters, paints, brushes, palette and sealant',
+      },
+    ],
     boxes: [
       {
         name: 'Toddler Educational Box',
@@ -133,6 +143,18 @@ export const COLLECTIONS: Collection[] = [
       'Create beautiful memories, share special moments and let your imagination come to life with our thoughtfully curated DIY art and casting stone kits. Whether you’re celebrating with friends, spending quality time with family, enjoying a date night or showing appreciation through gifting, we have a creative experience for every occasion.',
     ],
     colour: 'lilac',
+    gallery: [
+      {
+        src: '/boxes/girls-day-box.jpg',
+        box: 'Girls’ Day Box',
+        alt: 'Girls’ Day Box with a mini canvas and easel, an oval trinket tray holding flower and butterfly casting stone figures, twelve paint pots, brushes and palette',
+      },
+      {
+        src: '/boxes/friendsmas-box.jpg',
+        box: 'Friendsmas Box',
+        alt: 'Friendsmas Box with a mini canvas and easel, Santa, gift and Christmas tree casting stone figures, six paint pots, brushes, palette and sealant',
+      },
+    ],
     boxes: [
       {
         name: 'Friendsmas Box',

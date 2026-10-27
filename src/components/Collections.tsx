@@ -5,6 +5,7 @@ import {COLLECTIONS, type Collection} from '../collections';
 import {enquireAbout} from '../enquiry';
 import {BrushStroke, HeartDoodle, pastelDeep, Wash} from './Art';
 import BoxCard from './BoxCard';
+import BoxGallery from './BoxGallery';
 
 function ComingSoon({collection}: {collection: Collection}) {
   return (
@@ -122,6 +123,8 @@ export default function Collections() {
                   <BoxCard key={box.name} box={box} index={i} />
                 ))}
               </div>
+
+              {active.gallery && <BoxGallery photos={active.gallery} />}
             </>
           )}
         </motion.div>
