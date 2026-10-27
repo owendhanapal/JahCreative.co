@@ -1,13 +1,25 @@
-import {Send} from 'lucide-react';
-import {useState, type FormEvent} from 'react';
+import {Send, X} from 'lucide-react';
+import {useEffect, useState, type FormEvent} from 'react';
 import {SITE} from '../data';
+import {onEnquire} from '../enquiry';
 import {PaintReveal, SwipeStroke, Wash} from './Art';
 import Reveal from './Reveal';
 
-const INTERESTS = ['Children’s kit (3+)', 'Adult kit', 'Casting stone', 'Canvas', 'A gift', 'Party or event'];
+const INTERESTS = [
+  'Little Creators (kids)',
+  'Creative Moments (adults)',
+  'Corporate gifting',
+  'Student gifting',
+  'Party favours',
+  'Something custom',
+];
 
 export default function Enquire() {
   const [interest, setInterest] = useState<string[]>([]);
+  const [boxes, setBoxes] = useState<string[]>([]);
+
+  // Boxes picked from the collections arrive here via "Enquire about this box"
+  useEffect(() => onEnquire((box) => setBoxes((cur) => (cur.includes(box) ? cur : [...cur, box]))), []);
 
   const toggle = (i: string) =>
     setInterest((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i]));
@@ -17,6 +29,7 @@ export default function Enquire() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const lines = [`Name: ${f.get('name')}`, `Contact: ${f.get('contact')}`];
+    if (boxes.length) lines.push(`Boxes: ${boxes.join(', ')}`);
     if (interest.length) lines.push(`Interested in: ${interest.join(', ')}`);
     lines.push('', String(f.get('message') ?? ''));
     const body = lines.join('\n');
@@ -53,6 +66,29 @@ export default function Enquire() {
           <form onSubmit={submit} className="space-y-8">
             <input name="name" required placeholder="Your name" className={field} />
             <input name="contact" required placeholder="Email or phone number" className={field} />
+            {boxes.length > 0 && (
+              <div>
+                <p className="eyebrow mb-4">Boxes you’re enquiring about</p>
+                <ul className="flex flex-wrap gap-3">
+                  {boxes.map((b) => (
+                    <li
+                      key={b}
+                      className="flex items-center gap-2 rounded-full border border-blush-deep/40 bg-blush/40 py-2 pl-5 pr-3 text-sm"
+                    >
+                      {b}
+                      <button
+                        type="button"
+                        aria-label={`Remove ${b}`}
+                        onClick={() => setBoxes((cur) => cur.filter((x) => x !== b))}
+                        className="rounded-full p-0.5 transition-colors hover:bg-ink/10"
+                      >
+                        <X className="h-3.5 w-3.5" strokeWidth={1.5} />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div>
               <p className="eyebrow mb-4">I’m interested in</p>
               <div className="flex flex-wrap gap-3">

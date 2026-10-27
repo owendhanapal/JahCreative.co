@@ -81,7 +81,7 @@ export default function Hero() {
             href="#kits"
             className="rounded-full bg-ink px-9 py-4 text-[0.72rem] uppercase tracking-[0.28em] text-paper transition-colors hover:bg-ink-soft"
           >
-            Explore the kits
+            Explore the collections
           </a>
           <a
             href="#about"

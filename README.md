@@ -27,7 +27,11 @@ emitted, since components read them via `var()`).
 
 ## Content
 
-All copy and contact details live in `src/data.ts`.
+All copy and contact details live in `src/data.ts`. The product catalogue — the
+Little Creators, Creative Moments and Sensory collections and every box in them —
+lives in `src/collections.ts`; set `comingSoon: true` on a collection to show it
+as a teaser. "Enquire about this box" buttons hand the box name to the enquiry
+form via `src/enquiry.ts`.
 
 ## Artwork
 
@@ -43,4 +47,5 @@ All copy and contact details live in `src/data.ts`.
 - Contact details: `SITE.email` is a placeholder and `SITE.whatsapp` is empty.
   The enquiry form opens WhatsApp when a number is set, otherwise email.
 - Product photography for the kits.
+- Sensory collection contents (currently shown as coming soon).
 - Final domain (currently assumed `jahcreative.co`).

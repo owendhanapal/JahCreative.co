@@ -13,39 +13,10 @@ export const SITE = {
 
 export const NAV = [
   {label: 'About', href: '#about'},
-  {label: 'Kits', href: '#kits'},
+  {label: 'Collections', href: '#kits'},
   {label: 'Learning', href: '#learning'},
   {label: 'Why JAH', href: '#different'},
   {label: 'Enquire', href: '#enquire'},
-];
-
-export const KITS: {
-  title: string;
-  kicker: string;
-  body: string;
-  points: string[];
-  colour: Pastel;
-}[] = [
-  {
-    kicker: 'For ages 3+',
-    title: 'Little Hands, Big Discoveries',
-    body:
-      'Thoughtfully curated for little learners ready to explore, experiment and develop their creativity — with appropriate adult supervision.',
-    points: [
-      'Colour-mixing guide cards to keep',
-      'Primary & secondary colour play',
-      'Fine motor skills & confidence',
-    ],
-    colour: 'blush',
-  },
-  {
-    kicker: 'For grown-ups',
-    title: 'Creativity Has No Age Limit',
-    body:
-      'Designed for relaxation, self-expression and connection — a little time away from the demands of everyday life. No experience needed.',
-    points: ['Date nights & girls’ days', 'Festive get-togethers', 'A quiet evening of painting'],
-    colour: 'lilac',
-  },
 ];
 
 export const MEDIUMS: {title: string; body: string; colour: Pastel}[] = [
@@ -127,4 +98,6 @@ export const OCCASIONS = [
   'Date night',
   'Girls’ day',
   'Festive get-togethers',
+  'Bridal & baby showers',
+  'Corporate & student gifts',
 ];
