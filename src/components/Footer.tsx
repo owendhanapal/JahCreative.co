@@ -43,9 +43,7 @@ export default function Footer() {
             WhatsApp {SITE.phone}
           </a>
           <span className="hidden h-1 w-1 rounded-full bg-blush-deep sm:block" />
-          <a href={`mailto:${SITE.email}`} className="transition-colors hover:text-ink">
-            {SITE.email}
-          </a>
+          <span className="select-all">{SITE.email}</span>
         </p>
         <p className="mt-14 text-sm text-ink-faint">
           © {new Date().getFullYear()} {SITE.name}. One beautiful creation at a time.

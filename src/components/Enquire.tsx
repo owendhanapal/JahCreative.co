@@ -1,4 +1,4 @@
-import {Mail, X} from 'lucide-react';
+import {Check, Copy, Mail, X} from 'lucide-react';
 import {useEffect, useState, type FormEvent} from 'react';
 import {SITE, SOCIALS} from '../data';
 import {onEnquire} from '../enquiry';
@@ -18,6 +18,7 @@ const INTERESTS = [
 export default function Enquire() {
   const [interest, setInterest] = useState<string[]>([]);
   const [boxes, setBoxes] = useState<string[]>([]);
+  const [copied, setCopied] = useState(false);
 
   // Boxes picked from the collections arrive here via "Enquire about this box"
   useEffect(() => onEnquire((box) => setBoxes((cur) => (cur.includes(box) ? cur : [...cur, box]))), []);
@@ -25,20 +26,25 @@ export default function Enquire() {
   const toggle = (i: string) =>
     setInterest((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i]));
 
-  // No backend — the enquiry is handed off to WhatsApp or email, whichever button was pressed.
+  // No backend — the enquiry opens as a pre-filled WhatsApp chat.
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value;
     const f = new FormData(e.currentTarget);
     const lines = [`Name: ${f.get('name')}`, `Contact: ${f.get('contact')}`];
     if (boxes.length) lines.push(`Boxes: ${boxes.join(', ')}`);
     if (interest.length) lines.push(`Interested in: ${interest.join(', ')}`);
     lines.push('', String(f.get('message') ?? ''));
     const body = lines.join('\n');
-    if (via === 'email') {
-      window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Kit enquiry')}&body=${encodeURIComponent(body)}`;
-    } else {
-      window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(body)}`, '_blank', 'noopener');
+    window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(body)}`, '_blank', 'noopener');
+  };
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(SITE.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard blocked — the address is still on screen and selectable
     }
   };
 
@@ -80,13 +86,13 @@ export default function Enquire() {
               </a>
             </li>
             <li>
-              <a href={`mailto:${SITE.email}`} className="group flex items-center gap-4">
+              <div className="flex items-center gap-4">
                 <Mail className="h-5 w-5 text-lilac-deep" strokeWidth={1.5} />
                 <span>
                   <span className="eyebrow block">Email</span>
-                  <span className="text-lg transition-colors group-hover:text-blush-deep">{SITE.email}</span>
+                  <span className="select-all text-lg">{SITE.email}</span>
                 </span>
-              </a>
+              </div>
             </li>
           </ul>
 
@@ -157,23 +163,36 @@ export default function Enquire() {
               placeholder="Tell us a little more…"
               className={`${field} resize-none`}
             />
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-8">
               <button
                 type="submit"
-                value="whatsapp"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-ink px-8 py-4 text-[0.72rem] uppercase tracking-[0.26em] text-paper transition-colors hover:bg-ink-soft"
+                className="inline-flex shrink-0 items-center justify-center gap-3 whitespace-nowrap rounded-full bg-ink px-8 py-4 text-[0.72rem] uppercase tracking-[0.26em] text-paper transition-colors hover:bg-ink-soft"
               >
                 <SocialIcon name="WhatsApp" className="h-4 w-4" />
                 Send on WhatsApp
               </button>
-              <button
-                type="submit"
-                value="email"
-                className="inline-flex items-center justify-center gap-3 rounded-full border border-ink/30 px-8 py-4 text-[0.72rem] uppercase tracking-[0.26em] transition-colors hover:border-ink"
-              >
-                <Mail className="h-4 w-4" strokeWidth={1.5} />
-                Send by email
-              </button>
+              <p className="text-sm text-ink-soft">
+                Prefer email?
+                <span className="mt-1 flex items-center gap-2">
+                  <span className="select-all text-base text-ink">{SITE.email}</span>
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    aria-label="Copy email address"
+                    title="Copy email address"
+                    className="rounded-full p-1.5 transition-colors hover:bg-ink/10"
+                  >
+                    {copied ? (
+                      <Check className="h-3.5 w-3.5 text-sage-deep" strokeWidth={2} />
+                    ) : (
+                      <Copy className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    )}
+                  </button>
+                  <span aria-live="polite" className="text-xs text-sage-deep">
+                    {copied ? 'Copied' : ''}
+                  </span>
+                </span>
+              </p>
             </div>
           </form>
         </Reveal>
