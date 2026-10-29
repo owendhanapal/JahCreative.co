@@ -44,7 +44,5 @@ form via `src/enquiry.ts`.
 
 ## Outstanding before launch
 
-- Contact details: `SITE.email` is a placeholder and `SITE.whatsapp` is empty.
-  The enquiry form opens WhatsApp when a number is set, otherwise email.
 - Product photography for the kits.
 - Sensory collection contents (currently shown as coming soon).

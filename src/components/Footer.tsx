@@ -1,5 +1,6 @@
-import {NAV, SITE} from '../data';
+import {NAV, SITE, SOCIALS} from '../data';
 import {Dashes} from './Art';
+import SocialIcon from './SocialIcon';
 
 export default function Footer() {
   return (
@@ -18,6 +19,34 @@ export default function Footer() {
             </a>
           ))}
         </nav>
+        <div className="mt-10 flex gap-3">
+          {SOCIALS.map((s) => (
+            <a
+              key={s.name}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`JAH Creative Co on ${s.name}`}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+            >
+              <SocialIcon name={s.name} />
+            </a>
+          ))}
+        </div>
+        <p className="mt-8 flex flex-col items-center gap-2 text-ink-soft sm:flex-row sm:gap-6">
+          <a
+            href={`https://wa.me/${SITE.whatsapp}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-ink"
+          >
+            WhatsApp {SITE.phone}
+          </a>
+          <span className="hidden h-1 w-1 rounded-full bg-blush-deep sm:block" />
+          <a href={`mailto:${SITE.email}`} className="transition-colors hover:text-ink">
+            {SITE.email}
+          </a>
+        </p>
         <p className="mt-14 text-sm text-ink-faint">
           © {new Date().getFullYear()} {SITE.name}. One beautiful creation at a time.
         </p>

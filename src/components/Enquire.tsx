@@ -1,9 +1,10 @@
-import {Send, X} from 'lucide-react';
+import {Mail, X} from 'lucide-react';
 import {useEffect, useState, type FormEvent} from 'react';
-import {SITE} from '../data';
+import {SITE, SOCIALS} from '../data';
 import {onEnquire} from '../enquiry';
 import {PaintReveal, SwipeStroke, Wash} from './Art';
 import Reveal from './Reveal';
+import SocialIcon from './SocialIcon';
 
 const INTERESTS = [
   'Little Creators (kids)',
@@ -24,19 +25,21 @@ export default function Enquire() {
   const toggle = (i: string) =>
     setInterest((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : [...cur, i]));
 
-  // No backend yet — hand the enquiry off to WhatsApp if configured, otherwise email.
+  // No backend — the enquiry is handed off to WhatsApp or email, whichever button was pressed.
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value;
     const f = new FormData(e.currentTarget);
     const lines = [`Name: ${f.get('name')}`, `Contact: ${f.get('contact')}`];
     if (boxes.length) lines.push(`Boxes: ${boxes.join(', ')}`);
     if (interest.length) lines.push(`Interested in: ${interest.join(', ')}`);
     lines.push('', String(f.get('message') ?? ''));
     const body = lines.join('\n');
-    const url = SITE.whatsapp
-      ? `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(body)}`
-      : `mailto:${SITE.email}?subject=${encodeURIComponent('Kit enquiry')}&body=${encodeURIComponent(body)}`;
-    window.open(url, '_blank', 'noopener');
+    if (via === 'email') {
+      window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent('Kit enquiry')}&body=${encodeURIComponent(body)}`;
+    } else {
+      window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(body)}`, '_blank', 'noopener');
+    }
   };
 
   const field =
@@ -60,6 +63,47 @@ export default function Enquire() {
             Planning a playdate, a birthday, a date night or a special gift? Tell us what you have in mind and we’ll
             help you choose the perfect kit.
           </p>
+
+          <ul className="mt-12 space-y-5 border-t border-ink/10 pt-10">
+            <li>
+              <a
+                href={`https://wa.me/${SITE.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4"
+              >
+                <SocialIcon name="WhatsApp" className="h-5 w-5 text-sage-deep" />
+                <span>
+                  <span className="eyebrow block">WhatsApp</span>
+                  <span className="text-lg transition-colors group-hover:text-blush-deep">{SITE.phone}</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${SITE.email}`} className="group flex items-center gap-4">
+                <Mail className="h-5 w-5 text-lilac-deep" strokeWidth={1.5} />
+                <span>
+                  <span className="eyebrow block">Email</span>
+                  <span className="text-lg transition-colors group-hover:text-blush-deep">{SITE.email}</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <div className="mt-10 flex gap-3">
+            {SOCIALS.map((s) => (
+              <a
+                key={s.name}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`JAH Creative Co on ${s.name}`}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+              >
+                <SocialIcon name={s.name} />
+              </a>
+            ))}
+          </div>
         </Reveal>
 
         <Reveal delay={0.15} className="md:col-span-6 md:col-start-7">
@@ -113,12 +157,24 @@ export default function Enquire() {
               placeholder="Tell us a little more…"
               className={`${field} resize-none`}
             />
-            <button
-              type="submit"
-              className="inline-flex items-center gap-3 rounded-full bg-ink px-9 py-4 text-[0.72rem] uppercase tracking-[0.28em] text-paper transition-colors hover:bg-ink-soft"
-            >
-              Send enquiry <Send className="h-3.5 w-3.5" strokeWidth={1.5} />
-            </button>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="submit"
+                value="whatsapp"
+                className="inline-flex items-center justify-center gap-3 rounded-full bg-ink px-8 py-4 text-[0.72rem] uppercase tracking-[0.26em] text-paper transition-colors hover:bg-ink-soft"
+              >
+                <SocialIcon name="WhatsApp" className="h-4 w-4" />
+                Send on WhatsApp
+              </button>
+              <button
+                type="submit"
+                value="email"
+                className="inline-flex items-center justify-center gap-3 rounded-full border border-ink/30 px-8 py-4 text-[0.72rem] uppercase tracking-[0.26em] transition-colors hover:border-ink"
+              >
+                <Mail className="h-4 w-4" strokeWidth={1.5} />
+                Send by email
+              </button>
+            </div>
           </form>
         </Reveal>
       </div>

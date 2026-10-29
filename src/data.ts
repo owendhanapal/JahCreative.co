@@ -6,10 +6,16 @@ export const SITE = {
   name: 'JAH Creative Co',
   domain: 'jahcreativeco.co.za',
   tagline: 'where faith, creativity and imagination come together',
-  // TODO: confirm contact details with the client before launch
-  email: 'hello@jahcreativeco.co.za',
-  whatsapp: '', // international format, digits only, e.g. 27821234567
+  email: 'info@jahcreativeco.co.za',
+  whatsapp: '27662536783', // international format, digits only — used for wa.me links
+  phone: '066 253 6783',
 };
+
+export const SOCIALS = [
+  {name: 'Instagram', handle: '@jahcreative.co', href: 'https://www.instagram.com/jahcreative.co'},
+  {name: 'Facebook', handle: 'JAH Creative Co', href: 'https://www.facebook.com/share/1Ghd4w4eFM/'},
+  {name: 'TikTok', handle: '@jahcreativeco', href: 'https://www.tiktok.com/@jahcreativeco'},
+] as const;
 
 export const NAV = [
   {label: 'About', href: '#about'},
