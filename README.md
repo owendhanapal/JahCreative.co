@@ -1,6 +1,6 @@
 # Jah Creative
 
-Marketing site for JAH Creative Co — https://jahcreativeco.co.za
+Marketing site for JAH Creative Co — https://www.jahcreativeco.co.za
 
 ## Stack
 
