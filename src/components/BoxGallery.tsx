@@ -46,6 +46,8 @@ export default function BoxGallery({photos}: {photos: Photo[]}) {
                 src={p.src}
                 alt={p.alt}
                 loading="lazy"
+                width={1400}
+                height={1048}
                 className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
             </button>

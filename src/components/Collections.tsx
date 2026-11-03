@@ -1,5 +1,5 @@
 import {Bell} from 'lucide-react';
-import {AnimatePresence, motion} from 'motion/react';
+import {motion} from 'motion/react';
 import {useState} from 'react';
 import {COLLECTIONS, type Collection} from '../collections';
 import {enquireAbout} from '../enquiry';
@@ -40,7 +40,6 @@ function ComingSoon({collection}: {collection: Collection}) {
 
 export default function Collections() {
   const [activeId, setActiveId] = useState(COLLECTIONS[0].id);
-  const active = COLLECTIONS.find((c) => c.id === activeId)!;
 
   return (
     <div className="mt-16">
@@ -89,46 +88,50 @@ export default function Collections() {
         })}
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={active.id}
-          role="tabpanel"
-          id={`panel-${active.id}`}
-          aria-labelledby={`tab-${active.id}`}
-          initial={{opacity: 0, y: 16}}
-          animate={{opacity: 1, y: 0}}
-          exit={{opacity: 0, y: -8}}
-          transition={{duration: 0.45, ease: [0.22, 1, 0.36, 1]}}
-          className="mt-16"
-        >
-          {active.comingSoon ? (
-            <ComingSoon collection={active} />
-          ) : (
-            <>
-              <div className="mx-auto max-w-3xl text-center">
-                <p className="eyebrow" style={{color: pastelDeep(active.colour)}}>
-                  {active.audience}
-                </p>
-                <h3 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">{active.name}</h3>
-                <p className="mt-3 font-serif text-2xl italic text-ink-soft">{active.tagline}</p>
-                {active.intro.map((p) => (
-                  <p key={p} className="mt-6 text-lg leading-relaxed text-ink-soft">
-                    {p}
+      {/* Every panel stays in the DOM (inactive ones hidden) so all collections are in the prerendered HTML */}
+      {COLLECTIONS.map((c) => {
+        const selected = c.id === activeId;
+        return (
+          <motion.div
+            key={c.id}
+            role="tabpanel"
+            id={`panel-${c.id}`}
+            aria-labelledby={`tab-${c.id}`}
+            hidden={!selected}
+            initial={false}
+            animate={selected ? {opacity: 1, y: 0} : {opacity: 0, y: 16}}
+            transition={{duration: 0.45, ease: [0.22, 1, 0.36, 1]}}
+            className="mt-16"
+          >
+            {c.comingSoon ? (
+              <ComingSoon collection={c} />
+            ) : (
+              <>
+                <div className="mx-auto max-w-3xl text-center">
+                  <p className="eyebrow" style={{color: pastelDeep(c.colour)}}>
+                    {c.audience}
                   </p>
-                ))}
-              </div>
+                  <h3 className="mt-4 font-serif text-4xl leading-tight md:text-5xl">{c.name}</h3>
+                  <p className="mt-3 font-serif text-2xl italic text-ink-soft">{c.tagline}</p>
+                  {c.intro.map((p) => (
+                    <p key={p} className="mt-6 text-lg leading-relaxed text-ink-soft">
+                      {p}
+                    </p>
+                  ))}
+                </div>
 
-              <div className="mt-16 grid gap-6 md:grid-cols-2 md:gap-8">
-                {active.boxes.map((box, i) => (
-                  <BoxCard key={box.name} box={box} index={i} />
-                ))}
-              </div>
+                <div className="mt-16 grid gap-6 md:grid-cols-2 md:gap-8">
+                  {c.boxes.map((box, i) => (
+                    <BoxCard key={box.name} box={box} index={i} />
+                  ))}
+                </div>
 
-              {active.gallery && <BoxGallery photos={active.gallery} />}
-            </>
-          )}
-        </motion.div>
-      </AnimatePresence>
+                {c.gallery && <BoxGallery photos={c.gallery} />}
+              </>
+            )}
+          </motion.div>
+        );
+      })}
     </div>
   );
 }

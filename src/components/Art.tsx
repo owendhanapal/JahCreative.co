@@ -68,7 +68,7 @@ export function BrushStroke({
   className?: string;
   opacity?: number;
 }) {
-  const mask = `url(/brush/stroke-${variant % 3}.png) center / 100% 100% no-repeat`;
+  const mask = `url(/brush/stroke-${variant % 3}.webp) center / 100% 100% no-repeat`;
   return (
     <div
       aria-hidden="true"

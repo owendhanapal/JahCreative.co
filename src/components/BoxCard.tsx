@@ -1,5 +1,4 @@
 import {ArrowRight, Check, ChevronDown} from 'lucide-react';
-import {AnimatePresence, motion} from 'motion/react';
 import {useState} from 'react';
 import type {Box} from '../collections';
 import {enquireAbout} from '../enquiry';
@@ -7,21 +6,17 @@ import {pastel, pastelDeep} from './Art';
 
 const PREVIEW = 4;
 
+// Collapses with a grid-rows transition but keeps its content in the DOM, so it is in the prerendered HTML.
 function Expand({open, children}: {open: boolean; children: React.ReactNode}) {
   return (
-    <AnimatePresence initial={false}>
-      {open && (
-        <motion.div
-          initial={{height: 0, opacity: 0}}
-          animate={{height: 'auto', opacity: 1}}
-          exit={{height: 0, opacity: 0}}
-          transition={{duration: 0.45, ease: [0.22, 1, 0.36, 1]}}
-          className="overflow-hidden"
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div
+      inert={!open}
+      className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${
+        open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+      }`}
+    >
+      <div className="overflow-hidden">{children}</div>
+    </div>
   );
 }
 
@@ -30,8 +25,7 @@ export default function BoxCard({box, index}: {box: Box; index: number}) {
   const [themesOpen, setThemesOpen] = useState(false);
 
   const items = box.includes ?? [];
-  const shown = allItems ? items : items.slice(0, PREVIEW);
-  const hidden = items.length - PREVIEW;
+  const extra = items.length - PREVIEW;
   const deep = pastelDeep(box.colour);
 
   return (
@@ -59,20 +53,24 @@ export default function BoxCard({box, index}: {box: Box; index: number}) {
         <div className="relative mt-8 border-t border-ink/10 pt-6">
           <p className="eyebrow">What’s included</p>
           <ul className="mt-4 space-y-2.5">
-            {shown.map((item) => (
-              <li key={item} className="flex gap-3 text-[0.95rem] leading-snug">
+            {items.map((item, i) => (
+              <li
+                key={item}
+                hidden={!allItems && i >= PREVIEW}
+                className="flex gap-3 text-[0.95rem] leading-snug"
+              >
                 <Check className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} style={{color: deep}} />
                 {item}
               </li>
             ))}
           </ul>
-          {hidden > 0 && (
+          {extra > 0 && (
             <button
               onClick={() => setAllItems((o) => !o)}
               aria-expanded={allItems}
               className="mt-4 text-sm underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
             >
-              {allItems ? 'Show less' : `+ ${hidden} more`}
+              {allItems ? 'Show less' : `+ ${extra} more`}
             </button>
           )}
         </div>

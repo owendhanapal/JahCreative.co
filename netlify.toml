@@ -16,3 +16,21 @@
   for = "/*.png"
   [headers.values]
     Cache-Control = "public, max-age=604800"
+
+# Box photos and brush masks change rarely; a week keeps repeat visits fast.
+[[headers]]
+  for = "/boxes/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/brush/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"

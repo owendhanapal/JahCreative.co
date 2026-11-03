@@ -42,9 +42,21 @@ export default function Hero() {
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center text-center">
+        <motion.h1
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          transition={{duration: 1, delay: 0.3}}
+          className="eyebrow mb-6 max-w-xs leading-loose sm:max-w-none"
+        >
+          <span className="sr-only">JAH Creative Co — </span>
+          Curated art &amp; casting stone kits for kids and adults
+        </motion.h1>
         <motion.img
           src="/jah-logo.png"
-          alt="JAH Creative Co"
+          alt="JAH Creative Co logo"
+          width={687}
+          height={977}
+          fetchPriority="high"
           initial={{opacity: 0, y: 20}}
           animate={{opacity: 1, y: 0}}
           transition={{duration: 1.2, ease}}

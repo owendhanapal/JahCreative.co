@@ -22,6 +22,7 @@ export const NAV = [
   {label: 'Collections', href: '#kits'},
   {label: 'Learning', href: '#learning'},
   {label: 'Why JAH', href: '#different'},
+  {label: 'FAQ', href: '#faq'},
   {label: 'Enquire', href: '#enquire'},
 ];
 

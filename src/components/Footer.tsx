@@ -1,4 +1,5 @@
 import {NAV, SITE, SOCIALS} from '../data';
+import {LANDING_PAGES} from '../seo';
 import {Dashes} from './Art';
 import SocialIcon from './SocialIcon';
 
@@ -6,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-ink/10 px-6 pb-12 pt-20">
       <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
-        <img src="/jah-logo.png" alt="JAH Creative Co" className="h-36 w-auto" />
+        <img src="/jah-logo.png" alt="JAH Creative Co logo" width={687} height={977} loading="lazy" className="h-36 w-auto" />
         <p className="mt-6 flex items-center gap-3 tracking-[0.14em] text-ink-soft">
           <Dashes className="hidden shrink-0 sm:block" />
           {SITE.tagline}
@@ -45,6 +46,13 @@ export default function Footer() {
           <span className="hidden h-1 w-1 rounded-full bg-blush-deep sm:block" />
           <span className="select-all">{SITE.email}</span>
         </p>
+        <nav aria-label="Explore our kits" className="mt-12 flex max-w-3xl flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-ink-soft">
+          {LANDING_PAGES.map((l) => (
+            <a key={l.slug} href={`/${l.slug}/`} className="transition-colors hover:text-ink">
+              {l.label}
+            </a>
+          ))}
+        </nav>
         <p className="mt-14 text-sm text-ink-faint">
           © {new Date().getFullYear()} {SITE.name}. One beautiful creation at a time.
         </p>
